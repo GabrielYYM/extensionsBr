@@ -1,7 +1,7 @@
 package eu.kanade.tachiyomi.animeextension.pt.topanimes
 
 import eu.kanade.tachiyomi.animeextension.pt.topanimes.extractors.TopAnimesExtractor
-import eu.kanade.tachiyomi.animesource.model.Anime
+import eu.kanade.tachiyomi.animesource.model.SAnime
 import eu.kanade.tachiyomi.animesource.model.AnimeFilterList
 import eu.kanade.tachiyomi.animesource.model.SEpisode
 import eu.kanade.tachiyomi.animesource.model.Video
@@ -44,16 +44,16 @@ class TopAnimes : ParsedAnimeHttpSource() {
     override fun popularAnimeRequest(page: Int): Request = GET("$baseUrl/animes/page/$page")
     override fun popularAnimeSelector(): String = "div.poster"
     override fun popularAnimeNextPageSelector(): String? = "a.next"
-    override fun popularAnimeFromElement(element: Element): Anime {
-        val anime = Anime.create()
+    override fun popularAnimeFromElement(element: Element): SAnime {
+        val anime = SAnime.create()
         anime.setUrlWithoutDomain(element.select("a").attr("href"))
         anime.title = element.select("img").attr("alt")
         anime.thumbnail_url = element.select("img").attr("src")
         return anime
     }
 
-    override fun animeDetailsParse(document: Document): Anime {
-        val anime = Anime.create()
+    override fun animeDetailsParse(document: Document): SAnime {
+        val anime = SAnime.create()
         anime.title = document.select("h1.title").text()
         anime.genre = document.select("div.genres a").joinToString { it.text() }
         anime.description = document.select("div.sinopse, div.desc").text()
