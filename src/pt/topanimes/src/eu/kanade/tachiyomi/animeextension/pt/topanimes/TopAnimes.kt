@@ -74,6 +74,7 @@ class TopAnimes : ParsedAnimeHttpSource() {
     // Boilerplate padrão
     override fun latestUpdatesRequest(page: Int) = popularAnimeRequest(page)
     override fun latestUpdatesSelector() = popularAnimeSelector()
+    override fun latestUpdatesNextPageSelector(): String? = "a.next"
     override fun latestUpdatesFromElement(element: Element) = popularAnimeFromElement(element)
     override fun searchAnimeRequest(page: Int, query: String, filters: AnimeFilterList) = GET("$baseUrl/?s=$query")
     override fun searchAnimeSelector() = popularAnimeSelector()
