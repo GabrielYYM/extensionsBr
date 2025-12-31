@@ -41,6 +41,12 @@ class TopAnimes : ParsedAnimeHttpSource() {
         return videos
     }
 
+    override fun videoListSelector(): String = "div.video"
+
+    override fun videoFromElement(element: Element): Video {
+        return Video("", "", "")
+    }
+
     override fun popularAnimeRequest(page: Int): Request = GET("$baseUrl/animes/page/$page")
     override fun popularAnimeSelector(): String = "div.poster"
     override fun popularAnimeNextPageSelector(): String? = "a.next"
