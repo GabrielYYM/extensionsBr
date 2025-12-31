@@ -47,8 +47,14 @@ class TopAnimes : ParsedAnimeHttpSource() {
         return Video("", "", "")
     }
 
-    override fun videoUrlParse(response: Response): List<Video> {
-        return videoListParse(response)
+    override fun videoUrlParse(document: Document): String {
+        val playerLink = document.select("a[href*='auth=']").attr("href")
+        if (playerLink.isNotEmpty()) {
+            val extractor = TopAnimesExtractor(json)
+            val videos = extractor.videosFromUrl(playerLink)
+            return videos.firstOrNull()?.url ?: ""
+        }
+        return ""
     }
 
     override fun popularAnimeRequest(page: Int): Request = GET("$baseUrl/animes/page/$page")
