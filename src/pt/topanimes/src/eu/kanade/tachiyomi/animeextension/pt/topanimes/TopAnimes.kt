@@ -1,7 +1,8 @@
 package eu.kanade.tachiyomi.animeextension.pt.topanimes
 
-import eu.kanade.tachiyomi.animeextension.pt.topanimes.extractors.TopAnimesExtractor // Importamos nosso extrator
+import eu.kanade.tachiyomi.animeextension.pt.topanimes.extractors.TopAnimesExtractor
 import eu.kanade.tachiyomi.animesource.model.Anime
+import eu.kanade.tachiyomi.animesource.model.AnimeFilterList
 import eu.kanade.tachiyomi.animesource.model.SEpisode
 import eu.kanade.tachiyomi.animesource.model.Video
 import eu.kanade.tachiyomi.animesource.online.ParsedAnimeHttpSource
