@@ -43,6 +43,7 @@ class TopAnimes : ParsedAnimeHttpSource() {
 
     override fun popularAnimeRequest(page: Int): Request = GET("$baseUrl/animes/page/$page")
     override fun popularAnimeSelector(): String = "div.poster"
+    override fun popularAnimeNextPageSelector(): String? = "a.next"
     override fun popularAnimeFromElement(element: Element): Anime {
         val anime = Anime.create()
         anime.setUrlWithoutDomain(element.select("a").attr("href"))
