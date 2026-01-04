@@ -88,10 +88,17 @@ class TopAnimes : ParsedAnimeHttpSource() {
     }
 
     // Boilerplate padrão
-    override fun latestUpdatesRequest(page: Int) = popularAnimeRequest(page)
-    override fun latestUpdatesSelector() = popularAnimeSelector()
+    // Mostrar os últimos episódios do site
+    override fun latestUpdatesRequest(page: Int): Request = GET("$baseUrl/episodio/page/$page")
+    override fun latestUpdatesSelector() = "ul.episodios li"
+    override fun latestUpdatesFromElement(element: Element): SAnime {
+        val anime = SAnime.create()
+        val link = element.select("div.episodiotitle > a").attr("href")
+        anime.setUrlWithoutDomain(link)
+        anime.title = element.select("div.episodiotitle > a").text()
+        return anime
+    }
     override fun latestUpdatesNextPageSelector(): String? = "a.next"
-    override fun latestUpdatesFromElement(element: Element) = popularAnimeFromElement(element)
     override fun searchAnimeRequest(page: Int, query: String, filters: AnimeFilterList) = GET("$baseUrl/?s=$query")
     override fun searchAnimeSelector() = popularAnimeSelector()
     override fun searchAnimeFromElement(element: Element) = popularAnimeFromElement(element)
